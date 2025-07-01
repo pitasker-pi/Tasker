@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiTasker - Do Tasks, Earn Pi!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="pi_logo.png" alt="Pi Network Logo" class="pi-logo">
+        <p>Complete simple tasks and earn Pi rewards!</p>
+    </header>
+
+    <main>
+        <nav class="tabs">
+            <button class="tab-button active" onclick="showSection('available-tasks')">Available Tasks</button>
+            <button class="tab-button" onclick="showSection('my-tasks')">My Accepted Tasks</button>
+        </nav>
+
+        <section id="available-tasks" class="active-section">
+            <h2>Available Tasks</h2>
+            <div class="search-container">
+                <input type="text" id="task-search" placeholder="Search tasks by title or description..." onkeyup="filterTasks()">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div id="available-tasks-list">
+                </div>
+        </section>
+
+        <section id="my-tasks" class="hidden-section">
+            <h2>My Accepted Tasks</h2>
+            <div id="accepted-tasks-list">
+                <p>You haven't accepted any tasks yet.</p>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <h2>How It Works</h2>
+            <ul>
+                <li>Choose a task you want to complete.</li>
+                <li>Follow the instructions and complete the task.</li>
+                <li>Submit and get your task verified.</li>
+                <li>Receive your Pi rewards directly to your wallet!</li>
+            </ul>
+            <button class="pi-connect-button" onclick="showAlert('This is where Pi Wallet integration will go!')">Connect Pi Wallet</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 PiTasker. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
