@@ -212,6 +212,36 @@ button:disabled {
     line-height: 1.6;
 }
 
+/* Styles for Terms of Service and Privacy Policy sections */
+#terms-of-service, #privacy-policy {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-top: 20px;
+}
+
+#terms-of-service h3, #privacy-policy h3 {
+    color: #8B4513; /* Saddle Brown for sub-headings */
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #eee; /* Light dashed underline */
+    padding-bottom: 5px;
+}
+
+#terms-of-service p, #privacy-policy p,
+#terms-of-service ul, #privacy-policy ul {
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+#terms-of-service ul, #privacy-policy ul {
+    list-style-type: decimal; /* Numbered lists for policy points */
+    margin-left: 25px;
+}
+
+
 footer {
     text-align: center;
     padding: 20px;
@@ -219,4 +249,20 @@ footer {
     background-color: #333; /* Dark background for footer */
     color: white;
     font-size: 0.9em;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #DAA520; /* Golden color for footer links */
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #FFEFD5; /* Lighter gold on hover */
+    text-decoration: underline;
 }
