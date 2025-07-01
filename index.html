@@ -1,340 +1,139 @@
-// Initial data for all tasks (including those that might be accepted)
-let allTasksData = [
-    {
-        id: 'task001',
-        title: 'Write a Short Essay on Pi Network',
-        description: 'Write a brief essay (200 words) about the importance of Pi Network.',
-        reward: 0.5,
-        currency: 'Pi',
-        duration: '30 min',
-        category: 'Content Creation',
-        status: 'available' // available, accepted, pending_review, completed
-    },
-    {
-        id: 'task002',
-        title: 'Watch a Video and Give Feedback',
-        description: 'Watch a 2-minute video on a new Pi feature and provide your feedback.',
-        reward: 0.2,
-        currency: 'Pi',
-        duration: '5 min',
-        category: 'Feedback',
-        status: 'available'
-    },
-    {
-        id: 'task003',
-        title: 'Complete a Short Survey',
-        description: 'Fill out a 3-minute survey about your opinions on crypto applications.',
-        reward: 0.3,
-        currency: 'Pi',
-        duration: '10 min',
-        category: 'Survey',
-        status: 'available'
-    },
-    {
-        id: 'task004',
-        title: 'Invite 3 Friends to Pi Network',
-        description: 'Invite three new Pioneers to join Pi Network using your referral code.',
-        reward: 1.0,
-        currency: 'Pi',
-        duration: 'Variable',
-        category: 'Referral',
-        status: 'available'
-    },
-    {
-        id: 'task005',
-        title: 'Translate a Short Pi Article (Hausa)',
-        description: 'Translate a short article about Pi Network into Hausa (approx. 500 words).',
-        reward: 0.7,
-        currency: 'Pi',
-        duration: '1 hour',
-        category: 'Translation',
-        status: 'available'
-    },
-    {
-        id: 'task006',
-        title: 'Test Pi Browser Feature',
-        description: 'Spend 15 minutes navigating a new feature in the Pi Browser and report bugs.',
-        reward: 0.4,
-        currency: 'Pi',
-        duration: '15 min',
-        category: 'Bug Testing',
-        status: 'available'
-    },
-    {
-        id: 'task007',
-        title: 'Create a Pi-themed Meme',
-        description: 'Design and create an original meme related to Pi Network and its vision.',
-        reward: 0.25,
-        currency: 'Pi',
-        duration: '20 min',
-        category: 'Creative',
-        status: 'available'
-    },
-    {
-        id: 'task008',
-        title: 'Participate in a Community Poll',
-        description: 'Vote on important community decisions within the Pi app or forums.',
-        reward: 0.1,
-        currency: 'Pi',
-        duration: '2 min',
-        category: 'Community',
-        status: 'available'
-    },
-    {
-        id: 'task009',
-        title: 'Share Pi News on Social Media',
-        description: 'Share a recent Pi Network official announcement on one of your social media platforms.',
-        reward: 0.15,
-        currency: 'Pi',
-        duration: '5 min',
-        category: 'Marketing',
-        status: 'available'
-    },
-    {
-        id: 'task010',
-        title: 'Write a Product Review for a Pi App',
-        description: 'Write an honest review for a Pi Ecosystem application on their listing page.',
-        reward: 0.6,
-        currency: 'Pi',
-        duration: '40 min',
-        category: 'Review',
-        status: 'available'
-    }
-];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiTasker - Do Tasks, Earn Pi!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="pi_logo.png" alt="Pi Network Logo" class="pi-logo">
+        <p>Complete simple tasks and earn Pi rewards!</p>
+    </header>
 
-// Array to store available tasks (filtered from allTasksData based on status and search)
-let currentAvailableTasks = [];
+    <main>
+        <nav class="tabs">
+            <button class="tab-button active" onclick="showSection('available-tasks')">Available Tasks</button>
+            <button class="tab-button" onclick="showSection('my-tasks')">My Accepted Tasks</button>
+        </nav>
 
-// Array to store accepted tasks (filtered from allTasksData based on status)
-let acceptedTasks = [];
+        <section id="available-tasks" class="active-section">
+            <h2>Available Tasks</h2>
+            <div class="search-container">
+                <input type="text" id="task-search" placeholder="Search tasks by title or description..." onkeyup="filterTasks()">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div id="available-tasks-list">
+                </div>
+        </section>
 
-// --- Functions to Manage Tasks Display ---
+        <section id="my-tasks" class="hidden-section">
+            <h2>My Accepted Tasks</h2>
+            <div id="accepted-tasks-list">
+                <p>You haven't accepted any tasks yet.</p>
+            </div>
+        </section>
 
-function displayAvailableTasks() {
-    const tasksListDiv = document.getElementById('available-tasks-list');
-    tasksListDiv.innerHTML = ''; // Clear previous content
+        <section id="how-it-works">
+            <h2>How It Works</h2>
+            <ul>
+                <li>Choose a task you want to complete.</li>
+                <li>Follow the instructions and complete the task.</li>
+                <li>Submit and get your task verified.</li>
+                <li>Receive your Pi rewards directly to your wallet!</li>
+            </ul>
+            <button class="pi-connect-button" onclick="showAlert('This is where Pi Wallet integration will go!')">Connect Pi Wallet</button>
+        </section>
 
-    const searchTerm = document.getElementById('task-search').value.toLowerCase();
+        <section id="terms-of-service" class="hidden-section">
+            <h2>Terms of Service</h2>
+            <h3>1. Acceptance of Terms</h3>
+            <p>By accessing and using the PiTasker application ("App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you may not use the App.</p>
 
-    // Filter tasks based on search term and availability
-    const filteredAndAvailableTasks = currentAvailableTasks.filter(task =>
-        (task.title.toLowerCase().includes(searchTerm) ||
-        task.description.toLowerCase().includes(searchTerm) ||
-        task.category.toLowerCase().includes(searchTerm))
-    );
+            <h3>2. Services Provided</h3>
+            <p>PiTasker connects users ("Pioneers") with various digital tasks. Completion of these tasks may result in rewards, often in the form of Pi cryptocurrency, subject to verification and the terms specified for each task.</p>
 
-    if (filteredAndAvailableTasks.length === 0) {
-        tasksListDiv.innerHTML = '<p>No available tasks match your search. Try a different term!</p>';
-        return;
-    }
+            <h3>3. User Conduct</h3>
+            <ul>
+                <li>You agree to perform tasks truthfully and accurately.</li>
+                <li>Any fraudulent activity, misrepresentation, or attempt to exploit the App will result in immediate termination of your account and forfeiture of any accumulated rewards.</li>
+                <li>You are responsible for maintaining the confidentiality of your account information.</li>
+            </ul>
 
-    filteredAndAvailableTasks.forEach(task => {
-        const taskCardDiv = document.createElement('div');
-        taskCardDiv.className = 'task-card';
-        taskCardDiv.innerHTML = `
-            <h3>${task.title}</h3>
-            <p class="task-meta">
-                <span><i class="far fa-clock"></i> Duration: ${task.duration}</span>
-                <span><i class="fas fa-tags"></i> Category: ${task.category}</span>
-            </p>
-            <p>${task.description}</p>
-            <p>Reward: <strong><i class="fas fa-coins"></i> ${task.reward} ${task.currency}</strong></p>
-            <button id="accept-${task.id}" onclick="acceptTask('${task.id}', this)">Accept Task</button>
-        `;
-        tasksListDiv.appendChild(taskCardDiv);
-    });
-}
+            <h3>4. Rewards and Payments</h3>
+            <ul>
+                <li>Rewards are granted upon successful verification of task completion, as determined solely by PiTasker.</li>
+                <li>Reward values are subject to change.</li>
+                <li>PiTasker is not responsible for any issues related to the Pi Network or its blockchain, including wallet functionality or transaction delays.</li>
+            </ul>
 
-function displayAcceptedTasks() {
-    const acceptedTasksListDiv = document.getElementById('accepted-tasks-list');
-    acceptedTasksListDiv.innerHTML = ''; // Clear previous content
+            <h3>5. Disclaimers</h3>
+            <p>The App is provided "as is" without any warranties, express or implied. PiTasker does not guarantee the availability of tasks or specific reward amounts.</p>
 
-    if (acceptedTasks.length === 0) {
-        acceptedTasksListDiv.innerHTML = '<p>You haven\'t accepted any tasks yet. Go to "Available Tasks" to find some!</p>';
-        return;
-    }
+            <h3>6. Limitation of Liability</h3>
+            <p>PiTasker shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of or inability to use the App.</p>
 
-    acceptedTasks.forEach(task => {
-        const taskCardDiv = document.createElement('div');
-        taskCardDiv.className = 'task-card';
-        let statusText = '';
-        let buttonHtml = '';
+            <h3>7. Changes to Terms</h3>
+            <p>PiTasker reserves the right to modify these Terms at any time. Your continued use of the App after such modifications constitutes your acceptance of the new Terms.</p>
 
-        if (task.status === 'accepted') {
-            statusText = 'Accepted - In Progress';
-            buttonHtml = `<button onclick="submitTask('${task.id}', this)">Submit Task</button>`;
-        } else if (task.status === 'pending_review') {
-            statusText = 'Pending Review';
-            buttonHtml = `<button disabled>Awaiting Verification</button>`;
-        } else if (task.status === 'completed') {
-            statusText = 'Completed - Reward Paid!';
-            buttonHtml = `<button disabled>Task Completed</button>`;
-        }
+            <h3>8. Governing Law</h3>
+            <p>These Terms shall be governed by and construed in accordance with the laws of [Your Country/State, e.g., Nigeria, Taraba State].</p>
+        </section>
 
-        taskCardDiv.innerHTML = `
-            <h3>${task.title}</h3>
-            <p class="task-meta">
-                <span><i class="far fa-clock"></i> Duration: ${task.duration}</span>
-                <span><i class="fas fa-tags"></i> Category: ${task.category}</span>
-            </p>
-            <p>${task.description}</p>
-            <p>Reward: <strong><i class="fas fa-coins"></i> ${task.reward} ${task.currency}</strong></p>
-            <p>Status: <em>${statusText}</em></p>
-            ${buttonHtml}
-        `;
-        acceptedTasksListDiv.appendChild(taskCardDiv);
-    });
-}
+        <section id="privacy-policy" class="hidden-section">
+            <h2>Privacy Policy</h2>
+            <h3>1. Information We Collect</h3>
+            <p>PiTasker collects minimal information necessary for the operation of the App:</p>
+            <ul>
+                <li>**Task Activity Data:** Information about tasks you accept, submit, and complete (e.g., task ID, status, timestamps).</li>
+                <li>**Device Information:** Basic device type and operating system (for compatibility and analytics).</li>
+                <li>**No Personal Identifiable Information (PII):** PiTasker currently does not directly collect your name, email address, phone number, or other personal data that can identify you directly. Any connection to your Pi Network identity would be handled securely via the Pi SDK, not directly by this App.</li>
+            </ul>
 
+            <h3>2. How We Use Your Information</h3>
+            <p>We use the collected information to:</p>
+            <ul>
+                <li>Enable task acceptance and tracking.</li>
+                <li>Improve App functionality and user experience.</li>
+                <li>Perform basic analytics on task engagement.</li>
+            </ul>
 
-// --- Functions to Handle User Interactions ---
+            <h3>3. Data Storage</h3>
+            <p>Task activity data is stored locally on your device using your browser's Local Storage. This data is not transmitted to any external server by this App.</p>
 
-// Function for "Accept Task" button
-function acceptTask(taskId, buttonElement) {
-    // Find the task in allTasksData
-    const taskIndexInAll = allTasksData.findIndex(t => t.id === taskId);
+            <h3>4. Data Sharing and Disclosure</h3>
+            <p>PiTasker does not share or sell your data with third parties. As no PII is collected by the App directly, there is no personal data to share.</p>
 
-    if (taskIndexInAll !== -1) {
-        const task = allTasksData[taskIndexInAll];
+            <h3>5. Third-Party Services</h3>
+            <p>This App may link to or integrate with third-party services (e.g., Pi Network blockchain, Font Awesome for icons). Your use of those services is subject to their respective terms and privacy policies.</p>
 
-        // Simulate task acceptance (in a real app, this would involve backend/Pi SDK)
-        console.log(`Simulating acceptance for task: ${task.title}`);
-        alert(`You have accepted the task: "${task.title}"! This is a simulation. It has been moved to "My Accepted Tasks" tab.`);
+            <h3>6. Your Choices</h3>
+            <p>Since data is stored locally, you can clear this data by clearing your browser's or app's local storage/cache. This will reset your accepted tasks.</p>
 
-        // Mark the task as accepted in allTasksData
-        task.status = 'accepted';
+            <h3>7. Security</h3>
+            <p>We implement reasonable measures to protect the data stored locally on your device, but no local storage method is 100% secure against all threats.</p>
 
-        // Re-filter lists to reflect changes
-        currentAvailableTasks = allTasksData.filter(t => t.status === 'available');
-        acceptedTasks = allTasksData.filter(t => t.status !== 'available');
+            <h3>8. Children's Privacy</h3>
+            <p>PiTasker is not intended for use by children under the age of 13. We do not knowingly collect information from children under 13.</p>
 
-        // Update localStorage
-        saveTasksToLocalStorage();
+            <h3>9. Changes to this Privacy Policy</h3>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
 
-        // Update the UI
-        displayAvailableTasks(); // Re-render available tasks with the removed one
-        displayAcceptedTasks(); // Re-render accepted tasks (to ensure it's up-to-date)
+            <h3>10. Contact Us</h3>
+            <p>If you have any questions about this Privacy Policy, please contact us at [Your Contact Email Address, e.g., pitasker.support@example.com].</p>
+        </section>
+    </main>
 
-        // Switch to "My Accepted Tasks" tab after accepting
-        showSection('my-tasks');
-    } else {
-        console.error('Task not found or already accepted:', taskId);
-        alert('Could not find this task or it has already been accepted. Please try again.');
-    }
-}
+    <footer>
+        <p>&copy; 2025 PiTasker. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#" onclick="showSection('terms-of-service'); return false;">Terms of Service</a> |
+            <a href="#" onclick="showSection('privacy-policy'); return false;">Privacy Policy</a>
+        </div>
+    </footer>
 
-// Function for "Submit Task" button
-function submitTask(taskId, buttonElement) {
-    const taskIndexInAll = allTasksData.findIndex(t => t.id === taskId);
-
-    if (taskIndexInAll !== -1) {
-        const task = allTasksData[taskIndexInAll];
-
-        // Simulate task submission
-        console.log(`Simulating submission for task: ${task.title}`);
-        alert(`You have submitted the task: "${task.title}"! It is now pending review.`);
-
-        // Update status in allTasksData
-        task.status = 'pending_review';
-
-        // Re-filter acceptedTasks to reflect changes (important for re-display)
-        acceptedTasks = allTasksData.filter(t => t.status !== 'available');
-
-        // Update localStorage
-        saveTasksToLocalStorage();
-
-        // Re-display accepted tasks to show updated status and button
-        displayAcceptedTasks();
-    } else {
-        console.error('Task not found in all tasks data:', taskId);
-        alert('Error submitting task. Please try again.');
-    }
-}
-
-
-// Function to switch between tabs (Available Tasks, My Accepted Tasks, Terms, Privacy)
-function showSection(sectionId) {
-    // Hide all main sections
-    document.querySelectorAll('main section').forEach(section => {
-        section.classList.remove('active-section');
-        section.classList.add('hidden-section');
-    });
-
-    // Show the selected section
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.remove('hidden-section');
-        targetSection.classList.add('active-section');
-    }
-
-    // Update active state for tab buttons (only for main tabs)
-    document.querySelectorAll('.tab-button').forEach(button => {
-        button.classList.remove('active');
-    });
-    // Check if the clicked section is one of the main tabs
-    if (sectionId === 'available-tasks' || sectionId === 'my-tasks') {
-        const activeButton = document.querySelector(`.tab-button[onclick="showSection('${sectionId}')"]`);
-        if (activeButton) {
-            activeButton.classList.add('active');
-        }
-    }
-
-
-    // Always ensure the display functions are called when switching tabs
-    if (sectionId === 'available-tasks') {
-        document.getElementById('task-search').value = ''; // Clear search bar when returning to available tasks
-        // Re-initialize currentAvailableTasks from allTasksData based on status 'available'
-        currentAvailableTasks = allTasksData.filter(task => task.status === 'available');
-        filterTasks(); // Apply any existing search filter (though we just cleared it)
-    } else if (sectionId === 'my-tasks') {
-        // Re-initialize acceptedTasks from allTasksData based on status 'accepted', 'pending_review', or 'completed'
-        acceptedTasks = allTasksData.filter(task => task.status !== 'available');
-        displayAcceptedTasks();
-    }
-    // No specific display functions for Terms or Privacy sections, as their content is static in HTML.
-}
-
-
-// Function to filter tasks based on search input
-function filterTasks() {
-    displayAvailableTasks(); // Simply re-call displayAvailableTasks which now includes filtering
-}
-
-// Simple alert function (used for Pi Connect button)
-function showAlert(message) {
-    alert(message);
-}
-
-// --- Local Storage Management ---
-
-function saveTasksToLocalStorage() {
-    // We'll save the entire allTasksData array, as it holds the true status of all tasks
-    localStorage.setItem('piTasker_allTasksData', JSON.stringify(allTasksData));
-    console.log('Tasks saved to localStorage.');
-}
-
-function loadTasksFromLocalStorage() {
-    const savedAllTasks = localStorage.getItem('piTasker_allTasksData');
-
-    if (savedAllTasks) {
-        allTasksData = JSON.parse(savedAllTasks);
-        console.log('All tasks data loaded from localStorage:', allTasksData);
-    } else {
-        // If no tasks are saved, it's the first run, so use initial allTasksData (defined globally at the top)
-        console.log('No task data in localStorage, using default.');
-    }
-
-    // Initialize currentAvailableTasks and acceptedTasks based on the loaded allTasksData
-    currentAvailableTasks = allTasksData.filter(task => task.status === 'available');
-    acceptedTasks = allTasksData.filter(task => task.status !== 'available');
-}
-
-
-// --- Initialize App ---
-// This runs when the DOM (HTML structure) is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    loadTasksFromLocalStorage(); // Load any previously saved tasks
-    displayAvailableTasks(); // Display available tasks
-    displayAcceptedTasks(); // Display accepted tasks (will be empty if none loaded)
-    showSection('available-tasks'); // Ensure 'Available Tasks' tab is active by default
-});
+    <script src="script.js"></script>
+</body>
+</html>
